@@ -81,7 +81,29 @@ test('tag manager # list composite tags', (assert) => {
 
 });
 
-test('tag manager # seperate tags', (assert) => {
+test('tag manager # list premade tags', (assert) => {
+
+  const tags = TagManager();
+  const list = [];
+
+  for (let i = 0; i < 10; i++) {
+
+    const object = Object3D();
+    tags.tag(object, 'foo');
+    tags.tag(object, 'bar');
+    list.push(object);
+
+  }
+
+  const mask = tags.mask('foo', 'bar');
+
+  assert.same(tags.get(mask), list, 'uses tag mask');
+
+  assert.end();
+
+});
+
+test('tag manager # separate tags', (assert) => {
 
   const tags = TagManager();
   const foos = [];

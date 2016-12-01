@@ -14,6 +14,25 @@ export function TagManager() {
   const manager = {};
 
   /**
+   * Pre-generate a tag mask. This speeds up listing a little bit.
+   * @param tags
+   * @returns {number}
+   */
+  manager.mask = function (...tags) {
+
+    let grpmask = 0;
+
+    for (let i = 0; i < tags.length; i++) {
+
+      grpmask = grpmask | masks.get(tags[i]);
+
+    }
+
+    return grpmask;
+
+  };
+
+  /**
    * Add a tag to an object.
    * @param {Object3D} object - The object.
    * @param {String} tag - The tag.
@@ -63,17 +82,30 @@ export function TagManager() {
 
   /**
    * Get a list of objects with a set of tags.
-   * @param {String} tags - One or more tags to look for.
+   * @param {Number|String} tags - One or more tags to look for.
    * @returns {Object3D[]} The list of objects with that tag.
    */
   manager.get = function (...tags) {
 
-    let grpmask = 0;
+    if (tags.length === 0) {
 
-    for (let i = 0; i < tags.length; i++) {
+      return [];
 
-      grpmask = grpmask | masks.get(tags[i]);
+    }
 
+    let grpmask;
+
+    if (Number.isInteger(tags[0])) {
+
+      grpmask = tags[0];
+
+    } else {
+
+      for (let i = 0; i < tags.length; i++) {
+
+        grpmask = grpmask | masks.get(tags[i]);
+
+      }
     }
 
     let group = groups.get(grpmask);
