@@ -1,0 +1,21 @@
+{
+  "name": "three-tags",
+  "version": "0.1.1",
+  "license": "MIT",
+  "description": "group your objects by tag",
+  "repository": "hookerz/three-tags",
+  "author": "Chris Parker <parker@byhook.com>",
+  "main": "out/index.js",
+  "jsnext:main": "src/index.js",
+  "scripts": {
+    "test": "node test/index.js | tap-spec",
+    "build": "rm -rf out && rollup --config",
+    "prepublish": "npm run build"
+  },
+  "devDependencies": {
+    "reify": "^0.4.4",
+    "rollup": "^0.36.4",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.6.3"
+  }
+}
